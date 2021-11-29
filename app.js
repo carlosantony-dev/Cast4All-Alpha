@@ -6,8 +6,10 @@ const { Sequelize } = require('sequelize/dist');
 const mysql = require('mysql2');
 
 const bodyParser = require('body-parser');
-const usuarios = require('./models/users')
+const Usuarios = require('./models/users')
 const db = require('./models/db');
+const { sequelize } = require('./models/db');
+const { send } = require('process');
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -39,7 +41,9 @@ connection.connect(function (err){
 
 
 app.use(express.static(path.join(__dirname,"public")));
+app.use(express.static(path.join(__dirname,"scripts")));
 app.use(express.static(path.join(__dirname,"img")));
+app.use(express.static(path.join(__dirname,"audios")));
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname+"/Cast4All/welcome.html")
@@ -57,9 +61,26 @@ app.get("/password", function(req,res){
     res.sendFile(__dirname+"/Cast4All/RecuperarSenhaIndex.html")
 })
 
+app.get("/logado", function(req,res){
+    res.sendFile(__dirname+"/Cast4All/home_logado.html")
+})
+
+app.post("/auth", function(req,res){
+    const user = req.body.email
+    const password = req.body.senha
+   Usuarios.findAll({where: {email: user, senha: password}}).then(function(usuarios){
+       if (usuarios == ''){
+        res.sendFile(__dirname+"/Cast4All/login.html")
+       }else{
+        res.sendFile(__dirname+"/Cast4All/home_logado.html")
+       }
+   })
+})
+
+
+
 app.post('/register', function(req,res){
-    //res.send("Nome: " + req.body.nome)
-    usuarios.create({
+    Usuarios.create({
         nome: req.body.nome,
         email: req.body.email,
         senha: req.body.senha,
@@ -70,6 +91,14 @@ app.post('/register', function(req,res){
         res.sendFile(__dirname+"/Cast4All/CadastroIndex.html")
     })
 })
+
+/*app.post('/auth', function(req,res){
+    const user = req.body.email
+   /*Usuarios.findAll({where: {email: user}}).then(function(usuarios){
+       res.send({Usuarios: usuarios})
+   })
+   res.send(user);
+})*/
 
 
 

@@ -8,6 +8,7 @@ const sequelize = new Sequelize('usuarios','root', 'carlos123', {
     }
 })
 
+
 /*sequelize.authenticate()
 .then(function(){
     console.log("Conexão com o BD efetuada com sucesso!");

@@ -15,5 +15,6 @@ const Usuarios = db.sequelize.define('users', {
     }
 })
 
+
 module.exports = Usuarios;
 
