@@ -84,7 +84,6 @@ function autoplay_switch(){
 	}
 }
 
-
 function proxMusica(){
     console.log("click")
     if (index_no < All_song.length - 1){
