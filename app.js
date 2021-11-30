@@ -15,31 +15,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(bodyParser.json())
 
-/*var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'carlos123',
-    database: 'usuarios'
-});
-
-connection.connect(function (err){
-    if (err){
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
-})*/
-
-/*connection.query('SELECT * FROM users',function(err,rows,fields){
-    if (!err){
-        console.log('Resultado: ', rows);
-    }else{
-        console.log('Erro ao realizar a consulta.');
-    }
-})*/
-
-
-
 app.use(express.static(path.join(__dirname,"public")));
 app.use(express.static(path.join(__dirname,"scripts")));
 app.use(express.static(path.join(__dirname,"img")));
@@ -64,6 +39,54 @@ app.get("/password", function(req,res){
 app.get("/logado", function(req,res){
     res.sendFile(__dirname+"/Cast4All/home_logado.html")
 })
+
+//ENVIO DE EMAILS
+
+const nodemailer = require('nodemailer')
+
+let transporter = nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: "cast4allbr@outlook.com",
+        pass: "cast4all123"
+    }
+});
+
+
+
+/*app.post("/send-email", function(req,res){
+    const user = req.body.email
+    Usuarios.findAll({
+        attributes: ['senha'],
+        where: {email: user},
+      })
+      .then((usuarios){
+        let senha = usuarios
+        let senhaT = (senha['senha'])
+        res.send("res: " + senhaT)
+      });
+      
+      
+    /*Usuarios.findAll({where: {email: user}}).then(function(usuarios){
+        if (usuarios == ''){
+            console.log()
+        }else{
+            
+        }
+    })*/
+
+    /*transporter.sendMail({
+        from: "Cast 4All <cast4allbr@outlook.com>",
+        to: user,
+        subject: "Olá, sua recuperação de senha do Cast4All chegou!",
+        text: "Se você digitou um email que naõ está cadastrado, sua senha a seguir será nula!, Senha cadastrada: "
+    }).then(message => {
+        console.log(message);
+    }).catch(err => {
+        console.log(err);
+    })*/
 
 app.post("/auth", function(req,res){
     const user = req.body.email
@@ -92,16 +115,7 @@ app.post('/register', function(req,res){
     })
 })
 
-/*app.post('/auth', function(req,res){
-    const user = req.body.email
-   /*Usuarios.findAll({where: {email: user}}).then(function(usuarios){
-       res.send({Usuarios: usuarios})
-   })
-   res.send(user);
-})*/
 
-
-
-app.listen(8080, () => {
+app.listen(443, () => {
     console.log("Servidor rodando na porta 8080");
 })
