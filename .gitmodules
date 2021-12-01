@@ -1,0 +1,3 @@
+[submodule "third-party/boringssl"]
+    path = third-party/boringssl
+    url = https://github.com/carlosantony-dev/Cast4Alll_beta

@@ -56,7 +56,7 @@ let transporter = nodemailer.createTransport({
     secure: false,
     auth: {
         user: "cast4allbr@outlook.com",
-        pass: "cast4all123"
+        pass: "1c2a3r4l5o6s2021"
     }
 });
 
