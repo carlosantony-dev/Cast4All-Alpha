@@ -8,15 +8,6 @@ const sequelize = new Sequelize('usuarios','root', 'carlos123', {
     }
 })
 
-
-/*sequelize.authenticate()
-.then(function(){
-    console.log("Conexão com o BD efetuada com sucesso!");
-}).catch(function(){
-    console.log("Conexão mal sucedida!");
-});*/
-
-
 module.exports = {
     Sequelize: Sequelize,
     sequelize: sequelize

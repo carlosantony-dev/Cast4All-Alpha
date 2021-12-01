@@ -1,3 +1,5 @@
+//CARLOS ANTONY BLECHA PIRES RA: 20630414
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -14,32 +16,6 @@ const { send } = require('process');
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(bodyParser.json())
-
-/*var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'carlos123',
-    database: 'usuarios'
-});
-
-connection.connect(function (err){
-    if (err){
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
-})*/
-
-/*connection.query('SELECT * FROM users',function(err,rows,fields){
-    if (!err){
-        console.log('Resultado: ', rows);
-    }else{
-        console.log('Erro ao realizar a consulta.');
-    }
-})*/
-
-
-
 app.use(express.static(path.join(__dirname,"public")));
 app.use(express.static(path.join(__dirname,"scripts")));
 app.use(express.static(path.join(__dirname,"img")));
@@ -109,17 +85,6 @@ app.post("/send-email", function(req,res){
           }).catch(err =>{
             res.sendFile(__dirname+"/Cast4All/RecuperarSenhaIndex.html")
           })
-
-    /*transporter.sendMail({
-        from: "Cast 4All <cast4allbr@outlook.com>",
-        to: user,
-        subject: "Olá, sua recuperação de senha do Cast4All chegou!",
-        text: "Se você digitou um email que naõ está cadastrado, sua senha a seguir será nula!, Senha cadastrada: "
-    }).then(message => {
-        console.log(message);
-    }).catch(err => {
-        console.log(err);
-    })*/
 });
 
 app.post("/auth", function(req,res){
@@ -148,15 +113,6 @@ app.post('/register', function(req,res){
         res.sendFile(__dirname+"/Cast4All/CadastroIndex.html")
     })
 })
-
-/*app.post('/auth', function(req,res){
-    const user = req.body.email
-   /*Usuarios.findAll({where: {email: user}}).then(function(usuarios){
-       res.send({Usuarios: usuarios})
-   })
-   res.send(user);
-})*/
-
 
 
 app.listen(8080, () => {
