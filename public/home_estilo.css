@@ -42,6 +42,12 @@ h2{
     text-decoration: none;
 }
 
+#perfil_log{
+    color: white;
+    text-decoration-color: white;
+    text-decoration: none;
+}
+
 .search-icon{
     position: relative;
     float: right;

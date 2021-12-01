@@ -13,7 +13,7 @@ h3 {
 }
 
 body {
-    background-image: url('../Imagens/imgPerfil.jpg');
+    background-image: url('imgPerfil.jpg');
     background-size: cover;
     width: 100%;
     height: 100%;
