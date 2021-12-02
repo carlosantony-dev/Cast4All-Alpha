@@ -49,6 +49,8 @@ app.get("/perfil_logado", function(req,res){
 
 const nodemailer = require('nodemailer');
 const { type } = require('os');
+const { stat } = require('fs');
+const { start } = require('repl');
 
 let transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
@@ -94,6 +96,8 @@ app.post("/auth", function(req,res){
        if (usuarios == ''){
         res.sendFile(__dirname+"/Cast4All/login.html")
        }else{
+           Usuarios.update({stats: 'logado'},{where: {email: user}}).then(result => console.log(result)).catch(err => console.log(err))
+           Usuarios.increment('acessos', {by: 1, where: {email:user}});
         res.sendFile(__dirname+"/Cast4All/home_logado.html")
        }
    })
@@ -113,6 +117,21 @@ app.post('/register', function(req,res){
         res.sendFile(__dirname+"/Cast4All/CadastroIndex.html")
     })
 })
+
+app.get('/logout',function(req,res){
+    Usuarios.findOne({
+        attributes: ['email'],
+        where: {stats: 'logado'},
+      })
+      .then(function(usuarios) {
+          stas = usuarios
+          statT = stas['email']
+          console.log(statT)
+          Usuarios.update({stats: 'deslogado'},{where: {email: statT}}).then(result => console.log(result)).catch(err => console.log(err))
+          res.sendFile(__dirname+"/Cast4All/login.html")
+      })
+})
+
 
 
 app.listen(8080, () => {

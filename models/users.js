@@ -12,6 +12,12 @@ const Usuarios = db.sequelize.define('users', {
     },
     nascimento: {
         type: db.Sequelize.DATE
+    },
+    stats: {
+        type: db.Sequelize.STRING
+    },
+    acessos: {
+        type: db.Sequelize.INTEGER
     }
 })
 
